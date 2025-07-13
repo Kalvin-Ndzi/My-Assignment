@@ -7,26 +7,11 @@
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-  <header class="header">
-    <nav class="nav-container">
-      <div class="logo">StudentSys</div>
-      <ul class="nav-links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Students</a></li>
-        <li><a href="#">Courses</a></li>
-        <li><a href="#">Grades</a></li>
-        <li><a href="#">Schedule</a></li>
-        <li><a href="#">Messages</a></li>
-        <li><a href="#">About</a></li>
-      </ul>
-      <button class="menu-toggle" id="menu-toggle">&#9776;</button>
-    </nav>
-  </header>
-
+<div id="header"></div>
   <main class="welcome-message">
     <h1>Welcome to Our Student Management System</h1>
     <h2>Manage Your Students' Records with Ease</h2>
-    <p>Track enrollment, manage courses, record grades, and keep your school organized — all in one place.</p>
+    <p> <span class="diff-color">Track enrollment,</span> manage courses, record grades, and keep your school organized — all in one place.</p>
 
     <div class="action-buttons">
       <button id="show-signup">Sign Up</button>
@@ -52,62 +37,42 @@
     </section>
 
     <section class="feature-cards">
+
       <div class="card">
         <h3>Track Students</h3>
         <p>Monitor student profiles, attendance, and performance.</p>
+        <div class="things">
+            <div class="somethx">12</div>
+            <div class="somethx">33</div>
+            <div class="somethx">22</div>
+        </div>
       </div>
+
       <div class="card">
         <h3>Manage Courses</h3>
         <p>Create and update courses easily with flexible tools.</p>
+        <div class="things">
+            <div class="somethx">12</div>
+            <div class="somethx">33</div>
+            <div class="somethx">22</div>
+        </div>
       </div>
+
       <div class="card">
         <h3>Grade Records</h3>
         <p>Store and analyze grades securely and intuitively.</p>
+        <div class="things">
+            <div class="somethx">12</div>
+            <div class="somethx">33</div>
+            <div class="somethx">22</div>
+        </div>
       </div>
+
     </section>
   </main>
 
-<footer class="site-footer">
-  <div class="footer-grid">
-    <div class="footer-section">
-      <h4>About</h4>
-      <p>StudentSys helps schools manage enrollment, grading, schedules, and communication with ease and security.</p>
-    </div>
-
-    <div class="footer-section">
-      <h4>Navigation</h4>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Students</a></li>
-        <li><a href="#">Courses</a></li>
-        <li><a href="#">Grades</a></li>
-        <li><a href="#">Schedule</a></li>
-        <li><a href="#">Messages</a></li>
-        <li><a href="#">About</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-section">
-      <h4>Contact</h4>
-      <p>Email: support@studentsys.com</p>
-      <p>Phone: +237 650 123 456</p>
-      <p>Address: Bamenda Tech District, Cameroon</p>
-    </div>
-
-    <div class="footer-section">
-      <h4>Follow Us</h4>
-      <ul class="social-links">
-        <li><a href="#">Facebook</a></li>
-        <li><a href="#">Twitter</a></li>
-        <li><a href="#">LinkedIn</a></li>
-        <li><a href="#">Instagram</a></li>
-      </ul>
-    </div>
-  </div>
-</footer>
-
-
-  <script>
+<div id="footer"></div>
+<script>
     document.getElementById('show-signup').onclick = function () {
       document.getElementById('signup-form').style.display = 'block';
       document.getElementById('login-form').style.display = 'none';
@@ -119,10 +84,9 @@
       document.getElementById('signup-form').style.display = 'none';
       this.style.display = 'none';
     };
-
-    document.getElementById('menu-toggle').onclick = function () {
-      document.querySelector('.nav-links').classList.toggle('active');
-    };
-  </script>
+</script>
+  <script src="../js/include.js"></script>
+  <script src="../js/data.js"></script>
+  <script src="../js/scripts.js"></script>
 </body>
 </html>
