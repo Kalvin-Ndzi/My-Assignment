@@ -1,0 +1,40 @@
+.add-new-course {
+    background-color: rgb(254, 254, 254);
+    box-shadow: 0 0 2px rgb(113, 33, 171);
+    border-radius: 10px;
+    padding: 3rem 2rem;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 91%;
+    top: 12rem;
+    left: 3rem;
+    transition: all 3s ease;
+    transform: translateY(-6px);
+    animation: SlideIn 0.8s;
+}
+
+@keyframes SlideIn {
+    0% {
+        transform: translateX(-100);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.add-new-course input[type="text"] {
+    border: none;
+    border-bottom: 2px solid rgb(60, 6, 6);
+    margin-bottom: 3rem;
+    box-shadow: none;
+    width: 100%;
+}
+
+.add-new-course input[type="submit"] {
+    border: none;
+    box-shadow: none;
+    width: 20%;
+}

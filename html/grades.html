@@ -1,26 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grades page</title>
-    <link rel="stylesheet" href="../css/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grades Entry Dashboard</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/courses.css" />
+  <link rel="stylesheet" href="../css/grading.css">
 </head>
 <body>
 
 <div id="header">
-    <!-- I will place the header here-->
+  <!-- Your header goes here -->
 </div>
-<main>
-    <!--Main content of this page-->
+
+<main class="grades-dashboard">
+  <h1>Enter Grades</h1>
+  <p>Select a student to update their scores across all enrolled courses.</p>
+
+  <!-- Student List Section -->
+  <section class="student-list" id="student-list">
+    <!-- Student cards will be inserted dynamically -->
+  </section>
+
+  <!-- Grade Entry Overlay -->
+  <div class="grade-entry-overlay hidden" id="grade-entry-overlay">
+    <div class="grade-entry-modal">
+      <button class="close-overlay" id="close-overlay">×</button>
+      <h2>Grades for <span id="selected-student-name"></span></h2>
+      <form id="grade-form">
+        <div class="course-grid" id="course-inputs">
+          <!-- Input fields for each course will be inserted dynamically -->
+        </div>
+        <button type="submit" id="save-grades">Save Grades</button>
+      </form>
+    </div>
+  </div>
 </main>
-
+<h1>Still Under Construction</h1>
 <div id="footer">
-    <!--My footer goes Here-->
+  <!-- my footer goes here -->
 </div>
 
-  <script src="../js/include.js"></script>
-  <script src="../js/data.js"></script>
-  <script src="../js/scripts.js"></script>
+<script type="module" src="../js/include.js"></script>
+<script type="module" src="../js/models/enrolment.js"></script>
+<script type="module" src="../js/models/grade-entry.js"></script> <!-- Your grading script goes here -->
 </body>
 </html>

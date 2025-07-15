@@ -5,22 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Students page</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/courses.css">
+    <link rel="stylesheet" href="../css/create_course.css">
 </head>
+
 <body>
 
     <div id="header">
         <!-- I will place the header here-->
     </div>
-    <main>
         <!--Main content of this page-->
-    </main>
+ <main class="welcome-message">
+  <h1>Student Management</h1>
+  <h2>View Records, Register New Students, and Track Progress</h2>
+  <p><span class="diff-color">Empower learning</span> by organizing profiles, enrollment, and performance updates in one place.</p>
+
+  <div class="action-buttons">
+    <button id="add-student-button" class="register-student">Register New Student</button>
+    <button id="track-performance-button">Track Student Performance</button>
+  </div>
+
+  <div class="add-stud">
+
+  </div>
+
+  <section class="feature-cards" id="student-card-container">
+    <div class="card">
+      <h3>Jane Doe</h3>
+      <p>Matricule: STU1023</p>
+      <p>Class: Grade 10</p>
+      <div class="things">
+        <div class="somethx">A+</div>
+        <div class="somethx">92%</div>
+        <div class="somethx">Active</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>John Smith</h3>
+      <p>Matricule: STU1047</p>
+      <p>Class: Grade 12</p>
+      <div class="things">
+        <div class="somethx">B</div>
+        <div class="somethx">78%</div>
+        <div class="somethx">Active</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Angela Lee</h3>
+      <p>Matricule: STU1098</p>
+      <p>Class: Grade 11</p>
+      <div class="things">
+        <div class="somethx">A</div>
+        <div class="somethx">88%</div>
+        <div class="somethx">Flagged</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="student-analytics">
+    <h3>Enrollment Insights</h3>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <strong>Total Students:</strong>
+        <span>45</span>
+      </div>
+      <div class="summary-item">
+        <strong>Top Performers:</strong>
+        <span>8</span>
+      </div>
+      <div class="summary-item">
+        <strong>Pending Enrollments:</strong>
+        <span>3</span>
+      </div>
+      <div class="summary-item">
+        <strong>Performance Alerts:</strong>
+        <span>5 flagged</span>
+      </div>
+    </div>
+  </sectvion>
+</main>
 
     <div id="footer">
         <!--My footer goes Here-->
     </div>
 
-    <script src="../js/include.js"></script>
-    <script src="../js/data.js"></script>
-    <script src="../js/scripts.js"></script>
+    <script type="module" src="../js/include.js"></script>
+    <script type="module" src="../js/createStudent.js"></script>
+  </script>
 </body>
-</html>
+</html> 

@@ -5,14 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Courses Page</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/courses.css">
+    <link rel="stylesheet" href="../css/create_course.css">
 </head>
 <body>
 
 <div id="header">
     <!-- I will place the header here-->
 </div>
-<main>
-    <!--Main content of this page-->
+
+<main class="welcome-message">
+  <h1>Manage Your Courses</h1>
+  <h2>View, Create, and Update Courses Efficiently</h2>
+  <p><span class="diff-color">Streamline scheduling</span>, assign instructors, and record student performance — all from one place.</p>
+
+  <div class="action-buttons">
+    <button id="create-course-button" class="course-add">Add New Course</button>
+    <button id="record-performance-button">Record Performance</button>
+    <button>Logout</button>
+  </div>
+
+<div class="add-course">
+
+</div>
+
+  <section class="feature-cards" id="course-card-container">
+    <div class="card">
+      <h3>Mathematics</h3>
+      <p>Instructor: Mr. Smith</p>
+      <p>Schedule: Monday & Wednesday</p>
+      <div class="things">
+        <div class="somethx">35</div>
+        <div class="somethx">A+</div>
+        <div class="somethx">2hr</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>English Literature</h3>
+      <p>Instructor: Ms. Adams</p>
+      <p>Schedule: Tuesday & Thursday</p>
+      <div class="things">
+        <div class="somethx">28</div>
+        <div class="somethx">B</div>
+        <div class="somethx">1.5hr</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Physics</h3>
+      <p>Instructor: Dr. Kelvin</p>
+      <p>Schedule: Friday</p>
+      <div class="things">
+        <div class="somethx">40</div>
+        <div class="somethx">A</div>
+        <div class="somethx">3hr</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="course-summary">
+  <h3>Course Overview</h3>
+  <div class="summary-grid">
+    <div class="summary-item">
+      <strong>Total Courses:</strong>
+      <span>12</span>
+    </div>
+    <div class="summary-item">
+      <strong>Active Instructors:</strong>
+      <span>5</span>
+    </div>
+    <div class="summary-item">
+      <strong>Upcoming Exams:</strong>
+      <span>3</span>
+    </div>
+    <div class="summary-item">
+      <strong>Performance Alerts:</strong>
+      <span>2 flagged</span>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <div id="footer">
@@ -20,7 +93,7 @@
 </div>
 
   <script src="../js/include.js"></script>
-  <script src="../js/data.js"></script>
-  <script src="../js/scripts.js"></script>
+  <script type="module" src="../js/scripts.js"></script>
+  <script type="module" src="../js/models/main.js"></script>
 </body>
 </html>
