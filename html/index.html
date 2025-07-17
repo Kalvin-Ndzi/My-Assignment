@@ -10,33 +10,22 @@
 <div id="header"></div>
 
   <main class="welcome-message">
+
     <h1>Welcome to Our Student Management System</h1>
     <h2>Manage Your Students' Records with Ease</h2>
     <p> <span class="diff-color">Track enrollment,</span> manage courses, record grades, and keep your school organized — all in one place.</p>
-
     <div class="action-buttons">
       <button id="show-signup">Sign Up</button>
       <button id="show-login">Login</button>
     </div>
 
-    <section class="signup-form" id="signup-form">
-      <h3>Create Your Account</h3>
-      <form action="" id="signup" class="signup">
-        <input type="text" name="signup_username" placeholder="Username" class="uname" required />
-        <input type="password" name="signup_password" placeholder="Password" class="upwd" required />
-        <input type="submit" value="Sign Up" />
-      </form>
-    </section>
 
-    <section class="login-form" id="login-form">
-      <h3>Login to Your Account</h3>
-      <form action="#" method="" class="login">
-        <input type="text" name="login_username" class="ulogin-name" placeholder="Username" required />
-        <input type="password" name="login_password" class="ulogin-pwd" placeholder="Password" required />
-        <input type="submit" value="Login"/>
-      </form>
+<div class="user-input">
+        <h2 class="heading"></h2>
+      <section class="auth-form signup-form signup-form-show" id="auth-form">
     </section>
-
+</div>
+  
     <section class="feature-cards">
 
       <div class="card">
@@ -73,20 +62,8 @@
   </main>
 
 <div id="footer"></div>
-<script>
-    document.getElementById('show-signup').onclick = function () {
-      document.getElementById('signup-form').style.display = 'block';
-      document.getElementById('login-form').style.display = 'none';
-      this.style.display = 'none';
-    };
 
-    document.getElementById('show-login').onclick = function () {
-      document.getElementById('login-form').style.display = 'block';
-      document.getElementById('signup-form').style.display = 'none';
-      this.style.display = 'none';
-    };
-</script>
-  <script src="../js/include.js"></script>
-  <script type="module" src="../js/models/user.js"></script>
+<script type="module" src="../js/models/show_login.js"></script>
+  <script type="module" src="../js/include.js"></script>
 </body>
 </html>

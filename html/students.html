@@ -19,7 +19,6 @@
   <h1>Student Management</h1>
   <h2>View Records, Register New Students, and Track Progress</h2>
   <p><span class="diff-color">Empower learning</span> by organizing profiles, enrollment, and performance updates in one place.</p>
-
   <div class="action-buttons">
     <button id="add-student-button" class="register-student">Register New Student</button>
     <button id="track-performance-button">Track Student Performance</button>
@@ -85,6 +84,7 @@
       </div>
     </div>
   </sectvion>
+
 </main>
 
     <div id="footer">
@@ -93,6 +93,11 @@
 
     <script type="module" src="../js/include.js"></script>
     <script type="module" src="../js/createStudent.js"></script>
+    <script>
+      const GradeBtn = document.getElementById("track-performance-button").addEventListener('click', () => {
+        window.location.href = './grades.html';
+      });
+    </script>
   </script>
 </body>
 </html> 

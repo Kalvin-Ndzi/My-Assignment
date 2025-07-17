@@ -11,22 +11,16 @@ export class SchoolSystem {
     this.enrollments = [];
   }
 
-  // ========================
-  // 🔒 User Management
-  // ========================
+
   addUser(user) {
-    if (user instanceof User) {
       this.users.push(user);
-    }
   }
 
   findUser(name, password) {
     return this.users.find(user => user.name === name && user.password === password);
   }
 
-  // ========================
-  // 🎓 Student Management
-  // ========================
+
   addStudent(student) {
     if (student instanceof Student) {
       this.students.push(student);
@@ -38,9 +32,6 @@ export class SchoolSystem {
     this.enrollments = this.enrollments.filter(e => e.matricule !== matricule); // clean up enrollments too
   }
 
-  // ========================
-  // 📚 Course Management
-  // ========================
   addCourse(course) {
     if (course instanceof Course) {
       this.courses.push(course);
@@ -52,9 +43,7 @@ export class SchoolSystem {
     this.enrollments = this.enrollments.filter(e => e.courseCode !== courseCode); // clean up enrollments too
   }
 
-  // ========================
-  // 📝 Enrollment Management
-  // ========================
+
   enrollAllStudents() {
     this.enrollments = [];
     this.students.forEach(student => {
@@ -77,9 +66,7 @@ export class SchoolSystem {
     }
   }
 
-  // ========================
-  // 💾 Data Persistence
-  // ========================
+
   saveToStorage() {
     localStorage.setItem("users", JSON.stringify(this.users));
     localStorage.setItem("students", JSON.stringify(this.students));

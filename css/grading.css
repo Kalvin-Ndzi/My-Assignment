@@ -74,7 +74,7 @@ body {
 .grade-input {
   padding: 0.5rem;
   font-size: 0.9rem;
-  border: 1px solid #ccc;
+  border: 1 solid #ccc;
   border-radius: 4px;
 }
 
@@ -102,4 +102,12 @@ button:hover {
   border: none;
   background: none;
   cursor: pointer;
+  background-color: blue;
+}
+
+.grade-input {
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  border: 1px solid #ccc; 
+  border-radius: 4px;
 }
