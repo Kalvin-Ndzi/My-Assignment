@@ -11,7 +11,7 @@ const loadFromStorage = () => {
   };
 
   loadData("users", ({ name, password }) => system.addUser({ name, password }));
-  loadData("courses", ({ name, code }) => system.addCourse(new Course(name, code)));
+  loadData("courses", ({ courseName, code }) => system.addCourse(new Course(courseName, code)));
   loadData("students", ({ name, matricule }) => system.addStudent({ name, matricule }));
 
   console.log("Loaded Courses:", system.courses);
@@ -19,7 +19,7 @@ const loadFromStorage = () => {
 
 const saveCoursesToStorage = () => {
   const simpleCourses = system.courses.map(c => ({
-    name: c.courseName,
+    courseName: c.courseName,
     code: c.code || ""
   }));
   localStorage.setItem("courses", JSON.stringify(simpleCourses));
@@ -28,6 +28,8 @@ const saveCoursesToStorage = () => {
 const renderCourses = () => {
   const container = document.querySelector('#course-card-container');
   container.innerHTML = '';
+
+  console.log(system.courses)
 
   system.courses.forEach(course => {
     const card = document.createElement('div');
@@ -114,6 +116,7 @@ const sa_course = (course_name) => {
   const newCourse = new Course(course_name);
   system.addCourse(newCourse);
   saveCoursesToStorage();
+  renderCourses();
   return { success: true, message: "Course Registered" };
 };
 
@@ -151,3 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+
+console.log(JSON.parse(localStorage.getItem('CurrentUser')));
+console.log(JSON.parse(sessionStorage.getItem('logged-in')));

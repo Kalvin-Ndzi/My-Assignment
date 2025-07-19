@@ -3,16 +3,13 @@ import { SchoolSystem } from "./usermanager.js";
 document.addEventListener("DOMContentLoaded", () => {
   const system = new SchoolSystem();
 
-  // Load saved data
+  // Load data from localStorage
   system.loadFromStorage();
-  system.enrollAllStudents();
-  
-  // Create dummy data if needed
+
+  // If enrollments are missing, initialize everything
   if (!localStorage.getItem("enrollments")) {
-    console.log("No enrollments found — enrolling all students...");
     system.enrollAllStudents();
     system.saveToStorage();
-    console.log("Enrollments created:", system.enrollments);
   }
 
   // DOM elements
@@ -28,20 +25,35 @@ document.addEventListener("DOMContentLoaded", () => {
     return course ? course.courseName : "Course";
   }
 
-  // Helper: Get grade from enrollment
+  // Helper: Get enrollment score
   function getEnrollmentScore(courseCode, matricule) {
-    const enrollment = system.enrollments.find(
+    const record = system.enrollments.find(
       e => e.courseCode === courseCode && e.matricule === matricule
     );
-    return enrollment && enrollment.score !== null ? enrollment.score : "";
+    return record ? record.score : "Not graded";
   }
 
-  // Render student cards with name and matricule only
+  // Render all student cards with their grades
   system.students.forEach(student => {
     const card = document.createElement("div");
     card.classList.add("student-card");
     card.dataset.matricule = student.matricule;
-    card.innerHTML = `<h3>${student.name}</h3><p>Matricule: ${student.matricule}</p>`;
+
+    let html = `<h3>${student.name}</h3>
+                <p>Matricule: ${student.matricule}</p>
+                <ul class="student-courses">`;
+
+    const enrollments = system.getStudentEnrollments(student.matricule);
+    enrollments.forEach(enroll => {
+      const courseName = getCourseTitle(enroll.courseCode);
+      const score = enroll.score !== null ? enroll.score : "Not graded";
+      html += `<li>${courseName} (${enroll.courseCode}): <strong>${score}</strong></li>`;
+    });
+
+    html += `</ul>`;
+    card.innerHTML = html;
+
+    console.log(enrollments);
 
     card.addEventListener("click", () => {
       openGradeForm(student);
@@ -50,15 +62,15 @@ document.addEventListener("DOMContentLoaded", () => {
     studentList.appendChild(card);
   });
 
-  // Grade modal logic
+  // Grade form logic
   function openGradeForm(student) {
     gradeOverlay.classList.remove("hidden");
     studentNameSpan.textContent = student.name;
+
     courseSelect.innerHTML = "";
     gradeInput.value = "";
 
     const enrollments = system.getStudentEnrollments(student.matricule);
-
     enrollments.forEach(enroll => {
       const option = document.createElement("option");
       option.value = enroll.courseCode;
@@ -66,27 +78,25 @@ document.addEventListener("DOMContentLoaded", () => {
       courseSelect.appendChild(option);
     });
 
-    // Show score when course is selected
+    // Show the current grade for the selected course
     courseSelect.addEventListener("change", () => {
       const selectedCourse = courseSelect.value;
       const score = getEnrollmentScore(selectedCourse, student.matricule);
-      gradeInput.value = score;
+      gradeInput.value = score !== "Not graded" ? score : "";
     });
 
-    // Trigger initial score display
     courseSelect.dispatchEvent(new Event("change"));
 
-    // Save grade on button click
     document.getElementById("save-grade").onclick = () => {
       const selectedCourse = courseSelect.value;
       const score = parseInt(gradeInput.value.trim());
 
-      if (!isNaN(score) && score >= 0 && score <= 100) {
+      if (!isNaN(score)) {
         system.updateScore(student.matricule, selectedCourse, score);
         system.saveToStorage();
         alert("Grade saved successfully!");
         gradeOverlay.classList.add("hidden");
-        location.reload(); // Optional: refresh to reflect changes visually
+        location.reload(); // Refresh to show new score
       } else {
         alert("Please enter a valid score between 0 and 100.");
       }

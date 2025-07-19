@@ -23,7 +23,7 @@ function saveStudentsToStorage() {
 
 const attachDeleteListeners = () => {
   const deleteButtons = document.querySelectorAll('.delete-btn');
-  deleteButtons.forEach(button => {
+  deleteButtons.forEach((button)=> {
     button.addEventListener('click', () => {
       const matricule = button.getAttribute('data-matricule');
       system.students = system.students.filter(s => s.matricule !== matricule);
@@ -75,7 +75,7 @@ const attachEditListeners = () => {
 };
 
 
-const renderStudents = () => {
+export const renderStudents = () => {
   const container = document.querySelector('#student-card-container');
   container.innerHTML = '';
 
@@ -103,6 +103,7 @@ const renderStudents = () => {
 
   attachDeleteListeners(); // Attach listeners right after rendering
   attachEditListeners();
+  // renderStudents();
 };
 
 
@@ -134,6 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
         system.addStudent(new_student);
         saveStudentsToStorage();
         console.log(JSON.parse(localStorage.getItem('students')));
+        renderStudents();
         alert('Student created successfully!');
         document.querySelector('.add-stud').innerHTML = '';
       } else {

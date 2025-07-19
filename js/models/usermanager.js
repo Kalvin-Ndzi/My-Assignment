@@ -80,9 +80,13 @@ export class SchoolSystem {
     const rawCourses = JSON.parse(localStorage.getItem("courses")) || [];
     const rawEnrollments = JSON.parse(localStorage.getItem("enrollments")) || [];
 
+   
+
     this.users = rawUsers.map(u => new User(u.name, u.password)); // adjust based on User constructor
     this.students = rawStudents.map(s => new Student(s.name, s.matricule));
-    this.courses = rawCourses.map(c => new Course(c.code, c.title));
+    this.courses = rawCourses.map(c => new Course(c.courseName, c.code));
     this.enrollments = rawEnrollments.map(e => new Enrollment(e.matricule, e.courseCode, e.score));
+
+     console.log("Raw courses", rawCourses, this.courses)
   }
 }

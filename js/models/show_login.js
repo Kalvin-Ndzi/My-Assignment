@@ -10,21 +10,9 @@ export class User {
   }
 }
 
-// Form HTML Template
-const htmlContent = `
-  <form id="auth-form" class="auth-form-show">
-    <input type="text" name="auth_username" placeholder="Username" class="uname" required />
-    <div id="username-error"></div>
-    <input type="password" name="auth_password" placeholder="Password" class="upwd" required />
-    <div id="password-error"></div>
-    <input type="submit" id="auth-submit" value="Continue" />
-  </form>
-`;
-
 // Initialize system
 const system = new SchoolSystem();
 
-// Load stored data into system
 const loadFromStorage = () => {
   const users = JSON.parse(localStorage.getItem("users")) || [];
   users.forEach(data => system.addUser(new User(data.name, data.password)));
@@ -35,60 +23,64 @@ const loadFromStorage = () => {
   const students = JSON.parse(localStorage.getItem("students")) || [];
   students.forEach(data => system.addStudent(new Student(data.name, data.matricule)));
 
-  console.log("Users loaded from storage:", system.users);
-
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  console.log("Current session user:", currentUser?.name || "None");
+  console.log("Current user:", currentUser?.name || "None");
 };
 loadFromStorage();
 
-// Validation Helpers
-const validate_username = username => /^[^\s]+$/.test(username);
-const validate_password = password =>
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$/.test(password) &&
-  !password.includes(' ');
+// Form Template
+const htmlContent = `
+  <form id="auth-form" class="auth-form-show">
+    <input type="text" name="auth_username" placeholder="Username" class="uname" required />
+    <div id="username-error"></div>
+    <input type="password" name="auth_password" placeholder="Password" class="upwd" required />
+    <div id="password-error"></div>
+    <input type="submit" id="auth-submit" value="Continue" />
+  </form>
+`;
 
-// Registration Logic
+const uinput = document.querySelector('.user-input');
+uinput?.classList.add('hide');
+
+// Helpers
+const validate_username = username => /^[^\s]{3,}$/.test(username);
+const validate_password = password =>
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$/.test(password);
+
+// Core Actions
 const registerUser = (name, password) => {
   if (system.users.find(u => u.name === name)) {
     return { success: false, message: "User already exists" };
   }
   const newUser = new User(name, password);
   system.addUser(newUser);
-  console.log("In registerUser: system.users =", system.users);
   localStorage.setItem("users", JSON.stringify(system.users.map(u => ({
     name: u.name,
     password: u.password
   }))));
   localStorage.setItem("currentUser", JSON.stringify({ name }));
-  console.log("Users after registration:", system.users);
+  sessionStorage.setItem("logged-in", JSON.stringify({ name }));
   return { success: true, message: "Registration successful" };
 };
 
-// Login Logic
 const loginUser = (name, password) => {
-  hideForm()
-  uinput.classList.add('hide');
   const user = system.users.find(u => u.name === name && u.password === password);
   if (user) {
     localStorage.setItem("currentUser", JSON.stringify({ name }));
+    sessionStorage.setItem("logged-in", JSON.stringify({ name }));
     alert("Login successful!");
-    window.location.href = "../html/index.html";
+    window.location.href = "../../html/courses.html";
   } else {
     alert("Invalid username or password.");
   }
-  window.location.href = '../../html/courses.html'
 };
 
 const hideForm = () => {
-    const formContainer = document.querySelector('.auth-form');
-    formContainer.classList.add('hide');
-}
+  const formContainer = document.querySelector('.auth-form');
+  formContainer?.classList.add('hide');
+};
 
-const uinput = document.querySelector('.user-input');
-uinput.classList.add('hide');
-
-// DOM Event Bindings
+// DOM Bindings
 document.addEventListener("DOMContentLoaded", () => {
   const AuthFormContainer = document.querySelector('.auth-form');
   const SignupBtn = document.querySelector('#show-signup');
@@ -109,32 +101,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     UsernameInput.addEventListener('input', () => {
       const username = UsernameInput.value.trim();
-      if(username.length < 3){
-        UsernameError.innerText = "Username should be at least 3 characters long";
-        UsernameError.style.color = "red";
-      } else {
-        UsernameError.innerText = '';
-      }
+      UsernameError.textContent = validate_username(username)
+        ? ""
+        : "Username must be at least 3 characters long and contain no spaces.";
+      UsernameError.style.color = "red";
     });
 
     UserPasswordInput.addEventListener('input', () => {
-      const userpassword = UserPasswordInput.value.trim();
-      if(userpassword.length < 8){
-        UserPasswordError.innerText = 'Password length cannot be less than 8 characters';
-        UserPasswordError.style.color = 'red';
-      } else if (!/[a-z]/.test(userpassword)) {
-        UserPasswordError.textContent = "Password should contain at least one lowercase letter";
-        UserPasswordError.style.color = 'red';
-      } else if (!/[A-Z]/.test(userpassword)) {
-        UserPasswordError.textContent = "Password should contain at least one uppercase letter";
-        UserPasswordError.style.color = 'red';
-      } else if (!/\d/.test(userpassword)) {
-        UserPasswordError.textContent = "Password should contain at least one digit";
-        UserPasswordError.style.color = 'red';
-      } else {
-        UserPasswordError.textContent = "Password is strong";
-        UserPasswordError.style.color = 'green';
-      }
+      const password = UserPasswordInput.value.trim();
+      UserPasswordError.textContent = validate_password(password)
+        ? "Password is strong"
+        : "Password must include uppercase, lowercase, digit, and special character.";
+      UserPasswordError.style.color = validate_password(password) ? "green" : "red";
     });
 
     actualForm.addEventListener("submit", (e) => {
@@ -142,37 +120,31 @@ document.addEventListener("DOMContentLoaded", () => {
       const user_name = UsernameInput.value.trim();
       const user_password = UserPasswordInput.value.trim();
 
-      UsernameInput.value = '';
-      UserPasswordInput.value = '';
-      uinput.classList.add('hide');
-      
       if (type === "signup") {
         const result = registerUser(user_name, user_password);
         alert(result.message);
-        if (result.success && actualForm?.tagName === "FORM") {
+        if (result.success) {
           actualForm.reset();
           hideForm();
-          uinput.classList.add('hide');
         }
       } else if (type === "login") {
         loginUser(user_name, user_password);
-        window.location.href = '../../html/courses.html'
-        uinput.classList.add('hide');
       }
     });
   };
 
   SignupBtn?.addEventListener("click", e => {
-    uinput.classList.remove('hide');
     e.preventDefault();
+    uinput?.classList.remove('hide');
     loadForm("signup");
   });
 
   LoginBtn?.addEventListener("click", e => {
-    uinput.classList.remove('hide');
     e.preventDefault();
+    uinput?.classList.remove('hide');
     loadForm("login");
   });
 });
 
-
+// Debug session user
+console.log("Logged-in session user:", JSON.parse(sessionStorage.getItem('logged-in'))?.name || "None");
